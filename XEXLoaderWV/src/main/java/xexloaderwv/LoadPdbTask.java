@@ -127,7 +127,9 @@ class LoadPdbTask extends Task {
 		{
 			monitor.setMessage("PDB: Parsing " + pdbFile + "...");
 			pdb.deserialize();
-			DefaultPdbApplicator applicator = new DefaultPdbApplicator(pdb, program, program.getDataTypeManager(), program.getImageBase(), pdbApplicatorOptions, log);
+			// DefaultPdbApplicator (11.1 - 11.1.2): AbstractPdb, Program, DataTypeManager, Address, PdbApplicatorOptions, MessageLog
+			// DefaultPdbApplicator (11.2): AbstractPdb, Program, DataTypeManager, Address, PdbApplicatorOptions, TaskMonitor, MessageLog
+			DefaultPdbApplicator applicator = new DefaultPdbApplicator(pdb, program, program.getDataTypeManager(), program.getImageBase(), pdbApplicatorOptions, monitor, log);
 			applicator.applyDataTypesAndMainSymbolsAnalysis();
 			applicator.applyFunctionInternalsAnalysis();
 			DefaultPdbApplicator.applyAnalysisReporting(program);
